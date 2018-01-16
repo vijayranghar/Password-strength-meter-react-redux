@@ -46,7 +46,7 @@ body {
       .bg {
         display: block;
         height: 100%;
-        transition: background 200ms linear;
+        transition: width 200ms linear;
         &.weak {
           background: #FF4B47;
           width: 33.33%;
@@ -67,7 +67,7 @@ body {
     div {
       display: inline-block;
       width: 50%;
-      font-size: 11px;
+      font-size: 12px;
       vertical-align: middle;
     }
   }

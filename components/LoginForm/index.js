@@ -27,8 +27,9 @@ class LoginForm extends Component {
 
     const regexNegative = [
        "abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz",
+       "ABC|BCD|CDE|DEF|EFG|FGH|GHI|HIJ|IJK|JKL|KLM|LMN|MNO|NOP|OPQ|PQR|QRS|RST|STU|TUV|UVW|VWX|WXY|XYZ",
       "(.)\\1{1}",
-      "012|123|234|345|456|567|678"
+      "012|123|234|345|456|567|678",
     ]
 
     regexPositive.forEach((regex) => {
@@ -37,22 +38,20 @@ class LoginForm extends Component {
       }
     })
     regexNegative.forEach((regex) => {
-      if(new RegExp(regex).test(password)) {
-       score -=1
+      if(new RegExp(regex).test(password) && score > 1) {
+       score -= 0.5
         console.log(score)
       }
     })
-    switch (score) {
-      case 0:
-      case 1:
+
+    switch (true) {
+      case (score <= 1):
         passwordStrength="weak"
         break;
-      case 2:
-      case 3:
+      case (score <=3.5):
         passwordStrength="good"
         break;
-      case 4:
-      case 5:
+      case (score <=5):
         passwordStrength="strong"
         break;
       default:
