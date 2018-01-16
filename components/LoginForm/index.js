@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setPasswordStrength } from '../../action'
 import FontAwesome from 'react-fontawesome'
 
+import { setPasswordStrength } from '../../action'
 import style from './style.scss'
 
 class LoginForm extends Component {
@@ -40,12 +40,11 @@ class LoginForm extends Component {
     regexNegative.forEach((regex) => {
       if(new RegExp(regex).test(password) && score > 1) {
        score -= 0.5
-        console.log(score)
       }
     })
 
     switch (true) {
-      case (score <= 1):
+      case (score <= 2.5):
         passwordStrength="weak"
         break;
       case (score <=3.5):
@@ -57,6 +56,7 @@ class LoginForm extends Component {
       default:
         passwordStrength: "weak"
     }
+
     this.props.setPasswordStrength(passwordStrength)
   }
 
@@ -92,8 +92,8 @@ class LoginForm extends Component {
       this.setState({
         errorMessage
       })
-      this.measureStrength(password)
     }
+    this.measureStrength(password)
   }
 
   togglePassword = () => {
@@ -120,7 +120,6 @@ class LoginForm extends Component {
         <div>
           {errorMessage}
         </div>
-        {passwordStrength}
       </div>
     )
       : null
