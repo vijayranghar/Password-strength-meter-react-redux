@@ -1,43 +1,74 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #393937;
-  color: #fff;
+  background: #fff;
+  color: #585A69;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .login-wrapper {
-  width: 500px;
-  margin: 0 auto;
-  input[type="text"] {
-    background: #dedede;
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-left: 1px solid #000;
-    border-radius: 5px 5px 0 0;
-    color: #363636;
-    padding-left: 36px;
-    width: 300px;
-    border: none;
-    height: 48px;
-    outline: none;
+  width: 400px;
+  margin: 150px auto 0;
+  label {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 600;
   }
-
-  input[type="password"] {
-    background-color: #dedede;
-    border-top: 1px solid #828282;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-    border-left: 1px solid #000;
-    border-radius: 0 0 5px 5px;
-    color: #363636;
-    margin-bottom: 20px;
-    padding-left: 36px;
-    width: 204px;
-    border: none;
-    height: 48px;
-    outline: none;
+  .form-input {
+    position: relative;
+    input {
+      width: 100%;
+      border-radius: 5px;
+      height: 55px;
+      outline: none;
+      border: 3px solid #2F96EF;
+      text-align: center;
+      font-size: 18px;
+      color: #585A69;
+      font-weight: 700;
+      padding: 0 35px;
+    }
+    .fa {
+      position: absolute;
+      right: 15px;
+      top: calc(50% - 8px);
+      cursor: pointer;
+    }
+  }
+  .password-info {
+    .progress-bar {
+      height: 5px;
+      background: #D0D6DC;
+      .bg {
+        display: block;
+        height: 100%;
+        transition: background 200ms linear;
+        &.weak {
+          background: #FF4B47;
+          width: 33.33%;
+        }
+        &.good {
+          background: orange;
+          width: 66.66%;
+        }
+        &.strong {
+          background: green;
+          width: 100%;
+        }
+      }
+      & + div {
+        text-align: right;
+      }
+    }
+    div {
+      display: inline-block;
+      width: 50%;
+      font-size: 11px;
+      vertical-align: middle;
+    }
   }
 }

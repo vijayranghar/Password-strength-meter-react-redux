@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setPasswordStrength } from '../../action'
+import FontAwesome from 'react-fontawesome'
+
 import style from './style.scss'
 
 class LoginForm extends Component {
@@ -9,20 +11,35 @@ class LoginForm extends Component {
     this.state = {
       password: '',
       errorMessage: '',
+      showPassword: false,
     }
   }
   measureStrength = (password) => {
     let score = 0
+    let a = 0
     let passwordStrength
-    let regexPositive = [
+    const regexPositive = [
       "[A-Z]",
       "[a-z]",
       "[0-9]",
       "\\W",
     ]
-    regexPositive.forEach((regex, index) => {
+
+    const regexNegative = [
+       "abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz",
+      "(.)\\1{1}",
+      "012|123|234|345|456|567|678"
+    ]
+
+    regexPositive.forEach((regex) => {
       if (new RegExp(regex).test(password)) {
         score +=1
+      }
+    })
+    regexNegative.forEach((regex) => {
+      if(new RegExp(regex).test(password)) {
+       score -=1
+        console.log(score)
       }
     })
     switch (score) {
@@ -38,6 +55,8 @@ class LoginForm extends Component {
       case 5:
         passwordStrength="strong"
         break;
+      default:
+        passwordStrength: "weak"
     }
     this.props.setPasswordStrength(passwordStrength)
   }
@@ -68,28 +87,52 @@ class LoginForm extends Component {
       else if (symbolCount < 1) {
         errorMessage = "must contain symbol"
       }
+      else {
+        errorMessage = "Good to go!!!!"
+      }
       this.setState({
         errorMessage
       })
       this.measureStrength(password)
     }
   }
+
+  togglePassword = () => {
+    this.setState({
+      showPassword: !this.state.showPassword
+    })
+  }
+
   handleChange = (e) => {
     this.validate(e)
     this.setState({ password: e.target.value })
   }
   render () {
     const { passwordStrength } = this.props
-    const { errorMessage } = this.state
+    const { errorMessage, showPassword, password } = this.state
+    const textboxType = showPassword ? "text" : "password"
+    const icon = showPassword ? "eye": "eye-slash"
+    const passwordInfo = password.length > 0
+      ? (
+      <div className="password-info">
+        <div className="progress-bar">
+          <span className={`bg ${passwordStrength}`} />
+        </div>
+        <div>
+          {errorMessage}
+        </div>
+        {passwordStrength}
+      </div>
+    )
+      : null
     return (
       <div className="login-wrapper">
-        <br />
-        <input type="text" value="Username" />
-        <input type="password" value={this.state.password} onChange={this.handleChange} />
-        <br />
-        {errorMessage}
-        <br/>
-        {passwordStrength}
+        <label>ENTER PASSWORD</label>
+        <div className="form-input">
+          <input type={textboxType} value={this.state.password} onChange={this.handleChange} />
+          <FontAwesome name={icon} onClick={this.togglePassword}/>
+        </div>
+          {passwordInfo}
       </div>
     )
   }
