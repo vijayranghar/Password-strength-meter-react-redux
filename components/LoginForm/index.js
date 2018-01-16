@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setPasswordStrength } from '../../action'
-class Form extends Component {
+import style from './style.scss'
+
+class LoginForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -37,9 +39,6 @@ class Form extends Component {
         passwordStrength="strong"
         break;
     }
-    /*this.setState({
-      passwordStrength
-    })*/
     this.props.setPasswordStrength(passwordStrength)
   }
 
@@ -81,12 +80,14 @@ class Form extends Component {
   }
   render () {
     const { passwordStrength } = this.props
+    const { errorMessage } = this.state
     return (
-      <div>
+      <div className="login-wrapper">
         <br />
-        <input type="text" value={this.state.password} onChange={this.handleChange} />
+        <input type="text" value="Username" />
+        <input type="password" value={this.state.password} onChange={this.handleChange} />
         <br />
-        {this.state.errorMessage}
+        {errorMessage}
         <br/>
         {passwordStrength}
       </div>
@@ -102,9 +103,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPasswordStrength: (passwordStrength) => {
-      console.log("map called")
       dispatch(setPasswordStrength(passwordStrength))
     }
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Form)
+export default connect(mapStateToProps,mapDispatchToProps)(LoginForm)

@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #393937;
+  color: #fff;
+}
+
+.login-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  input[type="text"] {
+    background: #dedede;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border-radius: 5px 5px 0 0;
+    color: #363636;
+    padding-left: 36px;
+    width: 300px;
+    border: none;
+    height: 48px;
+    outline: none;
+  }
+
+  input[type="password"] {
+    background-color: #dedede;
+    border-top: 1px solid #828282;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-radius: 0 0 5px 5px;
+    color: #363636;
+    margin-bottom: 20px;
+    padding-left: 36px;
+    width: 204px;
+    border: none;
+    height: 48px;
+    outline: none;
+  }
+}
